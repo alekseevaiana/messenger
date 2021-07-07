@@ -22,12 +22,12 @@ const useStyles = makeStyles(() => ({
 
 const ActiveChat = (props) => {
   const classes = useStyles();
-  const { user, conversationId } = props;
+  const { user } = props;
   const conversation = props.conversation || {};
+  const conversationId = conversation?.id;
 
   return (
     <Box className={classes.root}>
-      {console.log(conversation.messages)}
       {conversation.otherUser && (
         <>
           <Header
