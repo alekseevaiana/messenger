@@ -24,6 +24,7 @@ const Messages = (props) => {
             text={message.text}
             time={time}
             otherUser={otherUser}
+            unread={true}
           />
         );
       })}
