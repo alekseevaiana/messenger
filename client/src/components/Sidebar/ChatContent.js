@@ -31,6 +31,8 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,
+    marginTop: "auto",
+    marginBottom: "auto",
   },
 }));
 
@@ -50,6 +52,8 @@ const ChatContent = (props) => {
           {latestMessageText}
         </Typography>
       </Box>
+
+      <Box className={classes.notification}>12</Box>
     </Box>
   );
 };
