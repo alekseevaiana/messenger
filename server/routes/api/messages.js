@@ -76,10 +76,12 @@ router.post("/read", async (req, res, next) => {
       },
     });
 
-    allMessages.forEach((msg) => {
+    const promises = allMessages.map((msg) => {
       msg.read = true;
-      msg.save();
+      return msg.save();
     });
+
+    await Promise.all(promises);
 
     res.json({});
   } catch (error) {
