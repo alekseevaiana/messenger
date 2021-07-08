@@ -124,3 +124,7 @@ export const searchUsers = (searchTerm) => async (dispatch) => {
     console.error(error);
   }
 };
+
+export const markMessageAsRead = (messageId) => async () => {
+  await axios.post("/api/messages/read", { messageId });
+};
