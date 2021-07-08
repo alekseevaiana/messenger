@@ -1,13 +1,11 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Box } from "@material-ui/core";
 import { SenderBubble, OtherUserBubble } from "../ActiveChat";
 import moment from "moment";
-import { last } from "cheerio/lib/api/traversing";
 
 const Messages = (props) => {
   const { messages, otherUser, userId } = props;
-
-  const lastMessageId = React.useMemo(
+  const lastMessageId = useMemo(
     () =>
       messages.reduce((prev, current) =>
         new Date(prev.createdAt) > new Date(current.createdAt)

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
 import { Input, Header, Messages } from "./index";
@@ -23,7 +23,7 @@ const useStyles = makeStyles(() => ({
 
 const ActiveChat = (props) => {
   const classes = useStyles();
-  const { user } = props;
+  const { user, markMessageAsRead } = props;
   const conversation = props.conversation || {};
   const conversationId = conversation?.id;
 
@@ -31,11 +31,11 @@ const ActiveChat = (props) => {
     ? conversation.messages[conversation.messages.length - 1]?.id
     : null;
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (lastMessageId) {
-      props.markMessageAsRead(lastMessageId);
+      markMessageAsRead(lastMessageId);
     }
-  }, [lastMessageId]);
+  }, [lastMessageId, markMessageAsRead]);
 
   return (
     <Box className={classes.root}>

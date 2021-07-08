@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
   username: {
     fontWeight: "bold",
     letterSpacing: -0.2,
+    fontSize: 14,
   },
   previewText: {
     fontSize: 12,
@@ -20,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
   previewTextUnread: {
     fontSize: 12,
+    fontWeight: "bold",
     color: "#000000",
     letterSpacing: -0.17,
   },
@@ -65,7 +67,6 @@ const ChatContent = (props) => {
           {latestMessageText}
         </Typography>
       </Box>
-
       {unreadCount ? (
         <Box className={classes.notification}>{unreadCount}</Box>
       ) : null}
