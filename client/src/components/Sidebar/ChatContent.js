@@ -19,7 +19,9 @@ const useStyles = makeStyles((theme) => ({
     letterSpacing: -0.17,
   },
   previewTextUnread: {
+    fontSize: 12,
     color: "#000000",
+    letterSpacing: -0.17,
   },
   notification: {
     height: 20,
