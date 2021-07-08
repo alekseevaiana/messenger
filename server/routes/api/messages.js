@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const { Conversation, Message } = require("../../db/models");
 const onlineUsers = require("../../onlineUsers");
+const { Op } = require("sequelize");
 
 // expects {recipientId, text, conversationId } in body (conversationId will be null if no conversation exists yet)
 router.post("/", async (req, res, next) => {
@@ -51,6 +52,36 @@ router.post("/", async (req, res, next) => {
       conversationId: conversation.id,
     });
     res.json({ message, sender });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.post("/read", async (req, res, next) => {
+  try {
+    if (!req.user) {
+      return res.sendStatus(401);
+    }
+
+    const message = await Message.findByPk(req.body.messageId);
+    const conversation = await message.getConversation();
+    const allMessages = await conversation.getMessages({
+      where: {
+        createdAt: {
+          [Op.lte]: message.createdAt,
+        },
+        senderId: {
+          [Op.ne]: req.user.id,
+        },
+      },
+    });
+
+    allMessages.forEach((msg) => {
+      msg.read = true;
+      msg.save();
+    });
+
+    res.json({});
   } catch (error) {
     next(error);
   }
