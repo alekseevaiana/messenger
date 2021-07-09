@@ -29,14 +29,15 @@ const useStyles = makeStyles(() => ({
     marginTop: "12px",
   },
   userPicture: {
-    width: "30px",
-    height: "30px",
+    width: "20px",
+    height: "19.35px",
   },
 }));
 
 const SenderBubble = (props) => {
   const classes = useStyles();
   const { time, text, otherUser, unread, lastMessage } = props;
+
   return (
     <Box className={classes.root}>
       <Typography className={classes.date}>{time}</Typography>
