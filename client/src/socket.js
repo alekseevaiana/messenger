@@ -24,7 +24,6 @@ socket.on("connect", () => {
   });
 
   socket.on("mark-read", (data) => {
-    console.log("RECEIVED READ");
     store.dispatch(fetchConversations());
   });
 });
