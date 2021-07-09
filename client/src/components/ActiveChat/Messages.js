@@ -15,13 +15,18 @@ const useStyles = makeStyles(() => ({
 }));
 
 function getLastReadMessageId(messages) {
-  return messages
-    .filter((message) => message.read)
-    .reduce((prev, current) =>
+  const readMessages = messages.filter((message) => message.read);
+  console.log(readMessages);
+  if (readMessages.length > 0) {
+    console.log("READ MESSAGES HERE");
+    return readMessages.reduce((prev, current) =>
       new Date(prev.createdAt) > new Date(current.createdAt)
         ? prev.id
         : current.id
     );
+  } else {
+    return null;
+  }
 }
 
 const Messages = (props) => {
