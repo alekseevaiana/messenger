@@ -19,31 +19,15 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function getLast(arr) {
-  return arr[arr.length - 1];
-}
-
-function compareConversations(conv1, conv2) {
-  const message1 = getLast(conv1.messages);
-  const message2 = getLast(conv2.messages);
-
-  const d1 = new Date(message1.createdAt);
-  const d2 = new Date(message2.createdAt);
-
-  return d2 - d1;
-}
-
 const Sidebar = (props) => {
   const classes = useStyles();
   const conversations = props.conversations || [];
   const { handleChange, searchTerm } = props;
 
   const filteredConversations = useMemo(() => {
-    return conversations
-      .filter((conversation) =>
-        conversation.otherUser.username.includes(searchTerm)
-      )
-      .sort(compareConversations);
+    return conversations.filter((conversation) =>
+      conversation.otherUser.username.includes(searchTerm)
+    );
   }, [conversations]);
 
   return (

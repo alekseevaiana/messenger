@@ -23,6 +23,8 @@ router.post("/", async (req, res, next) => {
             conversationId,
           });
           return res.json({ message, sender });
+        } else {
+          return res.status(403).json({});
         }
       }
     }
