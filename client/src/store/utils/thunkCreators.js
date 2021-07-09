@@ -127,5 +127,6 @@ export const searchUsers = (searchTerm) => async (dispatch) => {
 
 export const markMessageAsRead = (messageId) => async (dispatch) => {
   await axios.post("/api/messages/read", { messageId });
+  socket.emit("mark-read", {});
   dispatch(fetchConversations());
 };
