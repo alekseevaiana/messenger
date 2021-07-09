@@ -24,10 +24,12 @@ const Sidebar = (props) => {
   const { handleChange, searchTerm } = props;
 
   const filteredConversations = useMemo(() => {
+    const conversations = props.conversations || [];
+
     return conversations.filter((conversation) =>
       conversation.otherUser.username.includes(searchTerm)
     );
-  }, [conversations]);
+  }, [props.conversations, searchTerm]);
 
   return (
     <Box className={classes.root}>
