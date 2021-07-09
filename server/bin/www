@@ -54,6 +54,11 @@ io.on("connection", (socket) => {
       socket.broadcast.emit("remove-offline-user", id);
     }
   });
+
+  socket.on("mark-read", (data) => {
+    console.log("RECEIVED READ EVENT AND BROADCAST");
+    socket.broadcast.emit("mark-read", data);
+  });
 });
 
 sessionStore
