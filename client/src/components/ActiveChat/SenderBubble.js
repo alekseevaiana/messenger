@@ -7,6 +7,7 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "flex-end",
+    marginBottom: "10px",
   },
   date: {
     fontSize: 11,
@@ -24,9 +25,7 @@ const useStyles = makeStyles(() => ({
   bubble: {
     background: "#F4F6FA",
     borderRadius: "10px 10px 0 10px",
-  },
-  logo: {
-    marginTop: "12px",
+    marginBottom: "5px",
   },
   userPicture: {
     width: "20px",
@@ -36,7 +35,7 @@ const useStyles = makeStyles(() => ({
 
 const SenderBubble = (props) => {
   const classes = useStyles();
-  const { time, text, otherUser, unread, lastMessage } = props;
+  const { time, text, otherUser, unread, lastReadMessage } = props;
 
   return (
     <Box className={classes.root}>
@@ -44,8 +43,8 @@ const SenderBubble = (props) => {
       <Box className={classes.bubble}>
         <Typography className={classes.text}>{text}</Typography>
       </Box>
-      {!unread && lastMessage && (
-        <Box className={classes.logo}>
+      {!unread && lastReadMessage && (
+        <Box>
           <Avatar
             src={otherUser.photoUrl}
             alt={otherUser.username}
