@@ -88,10 +88,6 @@ router.get("/", async (req, res, next) => {
     }
 
     res.json(conversations.sort(compareConversations));
-<<<<<<< HEAD
-    //res.json(conversations);
-=======
->>>>>>> move sorting conversations to back end
   } catch (error) {
     next(error);
   }
