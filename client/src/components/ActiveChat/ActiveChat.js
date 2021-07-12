@@ -31,7 +31,9 @@ const ActiveChat = (props) => {
     ? conversation.messages[conversation.messages.length - 1]?.id
     : null;
 
+  console.log("RENDER ACTIVE CHAT");
   useEffect(() => {
+    console.log("LAST MESSAGE ID", lastMessageId);
     if (lastMessageId) {
       markMessageAsRead(lastMessageId);
     }
