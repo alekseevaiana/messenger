@@ -1,6 +1,21 @@
+function getLast(arr) {
+  return arr[arr.length - 1];
+}
+
+function compareConversations(conv1, conv2) {
+  const message1 = getLast(conv1.messages);
+  const message2 = getLast(conv2.messages);
+
+  const d1 = new Date(message1?.createdAt);
+  const d2 = new Date(message2?.createdAt);
+
+  return d2 - d1;
+}
+
 export const addMessageToStore = (state, payload) => {
   const { message, sender } = payload;
   // if sender isn't null, that means the message needs to be put in a brand new convo
+  let updated;
   if (sender !== null) {
     const newConvo = {
       id: message.conversationId,
@@ -8,20 +23,22 @@ export const addMessageToStore = (state, payload) => {
       messages: [message],
     };
     newConvo.latestMessageText = message.text;
-    return [newConvo, ...state];
+    updated = [newConvo, ...state];
+  } else {
+    updated = state.map((convo) => {
+      if (convo.id === message.conversationId) {
+        const convoCopy = { ...convo };
+        convoCopy.messages.push(message);
+        convoCopy.latestMessageText = message.text;
+
+        return convoCopy;
+      } else {
+        return convo;
+      }
+    });
   }
 
-  return state.map((convo) => {
-    if (convo.id === message.conversationId) {
-      const convoCopy = { ...convo };
-      convoCopy.messages.push(message);
-      convoCopy.latestMessageText = message.text;
-
-      return convoCopy;
-    } else {
-      return convo;
-    }
-  });
+  return updated.sort(compareConversations);
 };
 
 export const addOnlineUserToStore = (state, id) => {
