@@ -2,6 +2,10 @@ const onlineUsers = require("./onlineUsers");
 
 let io = null;
 
+module.exports.getIo = function () {
+  return io;
+};
+
 module.exports.connect = function connect(server) {
   io = require("socket.io")(server);
 
@@ -30,11 +34,6 @@ module.exports.connect = function connect(server) {
         onlineUsers.splice(userIndex, 1);
         socket.broadcast.emit("remove-offline-user", id);
       }
-    });
-
-    socket.on("mark-read", (data) => {
-      console.log("RECEIVED READ EVENT AND BROADCAST");
-      socket.broadcast.emit("mark-read", data);
     });
   });
 };
