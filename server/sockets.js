@@ -20,8 +20,6 @@ module.exports.connect = function connect(server) {
     });
 
     socket.on("new-message", (data) => {
-      // XXX remove
-      console.log("NEW MESSAGE", data);
       socket.to("user:" + data.recipientId).emit("new-message", {
         message: data.message,
         sender: data.sender,
