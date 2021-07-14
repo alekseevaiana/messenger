@@ -1,8 +1,10 @@
 import React, { useMemo } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, createTheme } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
 import { SenderBubble, OtherUserBubble } from "../ActiveChat";
 import moment from "moment";
+
+const theme = createTheme();
 
 const useStyles = makeStyles(() => ({
   messagesContainer: {
@@ -10,7 +12,7 @@ const useStyles = makeStyles(() => ({
     overflow: "auto",
   },
   messageBubble: {
-    marginBottom: "10px",
+    marginBottom: theme.spacing(5),
   },
 }));
 
@@ -26,6 +28,14 @@ function getLastReadMessageId(messages) {
     return null;
   }
 }
+
+// function getLastReadMessageId(messages) {
+//   return readMessages.reduce((prev, current) =>
+//     new Date(prev.createdAt) > new Date(current.createdAt)
+//       ? prev.id
+//       : current.id
+//   );
+// }
 
 const Messages = (props) => {
   const classes = useStyles();
