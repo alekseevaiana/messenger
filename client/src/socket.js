@@ -28,4 +28,10 @@ socket.on("connect", () => {
   });
 });
 
-export default socket;
+export function emitToServer(name, data) {
+  const token = localStorage.getItem("messenger-token");
+  socket.emit(name, {
+    data,
+    token,
+  });
+}
