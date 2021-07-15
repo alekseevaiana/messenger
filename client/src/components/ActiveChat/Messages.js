@@ -16,26 +16,31 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function getLastReadMessageId(messages) {
-  const readMessages = messages.filter((message) => message.read);
-  if (readMessages.length > 0) {
-    return readMessages.reduce((prev, current) =>
-      new Date(prev.createdAt) > new Date(current.createdAt)
-        ? prev.id
-        : current.id
-    );
-  } else {
-    return null;
-  }
+function isNewer(date1, date2) {
+  return new Date(date1) - new Date(date2) > 0;
 }
 
-// function getLastReadMessageId(messages) {
-//   return readMessages.reduce((prev, current) =>
-//     new Date(prev.createdAt) > new Date(current.createdAt)
-//       ? prev.id
-//       : current.id
-//   );
-// }
+function getLastReadMessageId(messages) {
+  if (messages.length === 0) {
+    return null;
+  }
+
+  let lastReadMsg = null;
+
+  for (let index = 0; index < messages.length; index++) {
+    const msg = messages[index];
+
+    if (msg.read) {
+      if (lastReadMsg && isNewer(msg.createdAt, lastReadMsg.createdAt)) {
+        lastReadMsg = msg;
+      } else {
+        lastReadMsg = msg;
+      }
+    }
+  }
+
+  return lastReadMsg?.id;
+}
 
 const Messages = (props) => {
   const classes = useStyles();
