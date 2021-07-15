@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   previewTextUnread: {
     fontSize: 12,
     fontWeight: "bold",
-    color: "#000000",
+    color: theme.palette.common.black,
     letterSpacing: -0.17,
   },
   notification: {
