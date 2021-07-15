@@ -37,9 +37,8 @@ module.exports.connect = function connect(server) {
 
       const id = payload.data;
       socket.join("user:" + id);
-      if (!onlineUsers.includes(id)) {
-        onlineUsers.push(id);
-      }
+
+      onlineUsers[id] = true;
       // send the user who just went online to everyone else who is already online
       socket.broadcast.emit("add-online-user", id);
     });
@@ -62,9 +61,8 @@ module.exports.connect = function connect(server) {
         return;
       }
       const id = payload.data;
-      if (onlineUsers.includes(id)) {
-        userIndex = onlineUsers.indexOf(id);
-        onlineUsers.splice(userIndex, 1);
+      if (onlineUsers[id]) {
+        onlineUsers[id] = false;
         socket.broadcast.emit("remove-offline-user", id);
       }
     });
