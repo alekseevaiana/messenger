@@ -56,7 +56,6 @@ io.on("connection", (socket) => {
   });
 
   socket.on("mark-read", (data) => {
-    console.log("RECEIVED READ EVENT AND BROADCAST");
     socket.broadcast.emit("mark-read", data);
   });
 });
