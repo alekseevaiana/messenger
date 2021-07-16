@@ -65,23 +65,22 @@ router.patch("/read", async (req, res, next) => {
 
     const message = await Message.findByPk(req.body.messageId);
     const conversation = await message.getConversation();
-    const allMessages = await conversation.getMessages({
-      where: {
-        createdAt: {
-          [Op.lte]: message.createdAt,
+    const r = await Message.update(
+      { read: true },
+      {
+        where: {
+          createdAt: {
+            [Op.lte]: message.createdAt,
+          },
+          senderId: {
+            [Op.ne]: req.user.id,
+          },
+          conversationId: conversation.id,
         },
-        senderId: {
-          [Op.ne]: req.user.id,
-        },
-      },
-    });
+      }
+    );
 
-    const promises = allMessages.map((msg) => {
-      msg.read = true;
-      return msg.save();
-    });
-
-    await Promise.all(promises);
+    console.log("RE", r);
 
     res.json({});
   } catch (error) {
