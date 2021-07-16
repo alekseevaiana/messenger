@@ -67,7 +67,9 @@ const ChatContent = (props) => {
           {latestMessageText}
         </Typography>
       </Box>
-      {unreadCount && <Box className={classes.notification}>{unreadCount}</Box>}
+      {unreadCount > 0 ? (
+        <Box className={classes.notification}>{unreadCount}</Box>
+      ) : null}
     </Box>
   );
 };
