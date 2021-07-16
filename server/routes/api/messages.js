@@ -81,8 +81,16 @@ router.patch("/read", async (req, res, next) => {
       }
     );
 
-    res.json({});
     res.status(204).send();
+
+    let recipientId = conversation.user1Id;
+    if (recipientId === req.user.id) {
+      recipientId = conversation.user2Id;
+    }
+
+    const io = getIo();
+
+    io.to("user:" + recipientId).emit("mark-read");
   } catch (error) {
     next(error);
   }
