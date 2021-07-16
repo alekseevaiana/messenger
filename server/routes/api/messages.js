@@ -80,9 +80,8 @@ router.patch("/read", async (req, res, next) => {
       }
     );
 
-    console.log("RE", r);
-
     res.json({});
+    res.status(204).send();
   } catch (error) {
     next(error);
   }

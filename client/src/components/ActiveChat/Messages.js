@@ -1,18 +1,16 @@
 import React, { useMemo } from "react";
-import { makeStyles, createTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
 import { SenderBubble, OtherUserBubble } from "../ActiveChat";
 import moment from "moment";
 
-const theme = createTheme();
-
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   messagesContainer: {
     height: "70vh",
     overflow: "auto",
   },
   messageBubble: {
-    marginBottom: theme.spacing(5),
+    marginBottom: theme.spacing(),
   },
 }));
 
