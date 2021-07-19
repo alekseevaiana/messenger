@@ -9,23 +9,15 @@ module.exports.getIo = function () {
 };
 
 function checkAuth(token) {
-  return new Promise((resolve) => {
-    jwt.verify(token, process.env.SESSION_SECRET, (err, decoded) => {
-      if (err) {
-        return resolve(null);
-      }
-      User.findOne({
-        where: { id: decoded.id },
-      })
-        .then((user) => {
-          resolve(user);
-        })
-        .catch(() => resolve(null));
-    });
-  });
+  const decoded = jwt.verify(token, process.env.SESSION_SECRET);
+  try {
+    return User.findOne({ where: { id: decoded.id } });
+  } catch (e) {
+    return null;
+  }
 }
 
-module.exports.connect = function connect(server) {
+module.exports.connect = function (server) {
   io = require("socket.io")(server);
 
   io.on("connection", (socket) => {
